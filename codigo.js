@@ -1,51 +1,84 @@
-const obtenerInformacion = (materia) => {
-  materias = {
-    fisica: [`Pérez`, `Pedro`, `Pepito`, `Cofla`, `María`],
-    programacion: [`Wilson`, `Pedro`, `Juan`, `Pepito`],
-    logica: [`Hernández`, `Pedro`, `Juan`, `Pepito`, `Cofla`, `María`],
-    quimica: [`Rodríguez`, `Pedro`, `Juan`, `Pepito`, `Cofla`, `María`],
-  };
-  if (materias[materia] !== undefined) {
-    return [materias[materia], materia, materias];
-  } else {
-    return materias;
-  }
+let materias = {
+  fisica: [`Pérez`, `Pedro`, `Pepito`, `Cofla`, `María`],
+  programacion: [`Wilson`, `Pedro`, `Juan`, `Pepito`],
+  logica: [`Hernández`, `Pedro`, `Juan`, `Pepito`, `Cofla`, `María`],
+  quimica: [`Rodríguez`, `Pedro`, `Juan`, `Pepito`, `Cofla`, `María`],
 };
 
-const mostrarInformacion = (materia) => {
-  let informacion = obtenerInformacion(materia);
-
-  if (informacion !== false) {
-    let profesor = informacion[0][0];
-    let alumnos = informacion[0];
-    alumnos.shift();
+const inscribir = (alumno, materia) => {
+  personas = materias[materia];
+  if (personas.length >= 21) {
     document.write(
-      `El profesor de <b>${informacion[1]}</b> es: <b style='color: red'>${profesor}</b><br>
-    Los alumnos son: <b style='color: blue'>${alumnos}</b><br><br>`
+      `Lo siento <b>${alumno}</b>, las clases de <b>${materia}</b> ya están llenas<br><br>`
     );
   } else {
-    document.write(`La materia no existe`);
-  }
-};
-
-const cantidadDeClases = (alumno) => {
-  let informacion = obtenerInformacion();
-  let clasesPresentes = [];
-  let cantidadTotal = 0;
-  for (info in informacion) {
-    if (informacion[info].includes(alumno)) {
-      cantidadTotal++;
-      clasesPresentes.push(` ${info}`);
+    personas.push(alumno);
+    if (materia == `fisica`) {
+      materias = {
+        fisica: personas,
+        programacion: materias[`programacion`],
+        logica: materias[`logica`],
+        quimica: materias[`quimica`],
+      };
+    } else if (materia == `programacion`) {
+      materias = {
+        fisica: materias[`fisica`],
+        programacion: personas,
+        logica: materias[`logica`],
+        quimica: materias[`quimica`],
+      };
+    } else if (materia == `logica`) {
+      materias = {
+        fisica: materias[`fisica`],
+        programacion: materias[`programacion`],
+        logica: personas,
+        quimica: materias[`quimica`],
+      };
+    } else if (materia == `quimica`) {
+      materias = {
+        fisica: materias[`fisica`],
+        programacion: materias[`programacion`],
+        logica: materias[`logica`],
+        quimica: personas,
+      };
     }
+    document.write(
+      `¡Felicidades <b>${alumno}</b>! Te has inscripto a <b>${materia}</b> correctamente<br><br>`
+    );
   }
-  return `<b style='color:blue'>${alumno}</b> está en <b>${cantidadTotal} clases:</b> <b style='color:green'>${clasesPresentes}</b><br><br>`;
 };
 
-mostrarInformacion(`fisica`);
-mostrarInformacion(`programacion`);
-mostrarInformacion(`logica`);
-mostrarInformacion(`quimica`);
+document.write(`${materias["fisica"]}<br>`);
 
-document.write(cantidadDeClases(`Cofla`));
-document.write(cantidadDeClases(`María`));
-document.write(cantidadDeClases(`Pedro`));
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Jorgito`, `fisica`);
+inscribir(`Ramses`, `fisica`);
+inscribir(`Wacho1`, `fisica`);
+inscribir(`Zafaroni`, `fisica`);
+inscribir(`Waldo`, `fisica`);
+inscribir(`Jorge`, `fisica`);
+inscribir(`Sergtio`, `fisica`);
+inscribir(`Xavi`, `fisica`);
+inscribir(`Xabi`, `fisica`);
+inscribir(`Isabel`, `fisica`);
+inscribir(`Portugal`, `fisica`);
+inscribir(`Minino`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Maxi`, `fisica`);
+inscribir(`Casero`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+inscribir(`Pedrito`, `fisica`);
+
+document.write(`<br>${materias["fisica"]}`);
